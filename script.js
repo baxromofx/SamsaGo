@@ -1,72 +1,156 @@
-let cart = [];
-let cartCount = 0;
-
-const cartBtn = document.getElementById("cartBtn");
-const buttons = document.querySelectorAll(".card button");
-
-buttons.forEach((button, index) => {
-    button.addEventListener("click", () => {
-
-        const products = [
-            {
-                name: "Говяжья самса",
-                price: 25000
-            },
-            {
-                name: "Куриная самса",
-                price: 22000
-            },
-            {
-                name: "Картофельная самса",
-                price: 18000
-            }
-        ];
-
-        cart.push(products[index]);
-        cartCount++;
-
-        cartBtn.innerHTML = 🛒 Корзина (${cartCount});
-    });
-});
-
-cartBtn.addEventListener("click", () => {
-
-    if(cart.length===0){
-        alert("Корзина пуста");
-        return;
+const products = [
+    {
+        nameRu: "Говяжья самса",
+        nameUz: "Mol go'shtli somsa",
+        price: 25000,
+        qty: 0
+    },
+    {
+        nameRu: "Куриная самса",
+        nameUz: "Tovuqli somsa",
+        price: 22000,
+        qty: 0
+    },
+    {
+        nameRu: "Картофельная самса",
+        nameUz: "Kartoshkali somsa",
+        price: 18000,
+        qty: 0
     }
+];
 
-    let text = "Ваш заказ:\n\n";
+let lang = "ru";
+
+const plusBtns = document.querySelectorAll(".plus");
+const minusBtns = document.querySelectorAll(".minus");
+const qtys = document.querySelectorAll(".qty");
+
+const cartCount = document.getElementById("cartCount");
+const cartBtn = document.getElementById("cartBtn");
+const language = document.getElementById("language");
+
+function updateCart(){
+
+    let count = 0;
     let total = 0;
 
-    cart.forEach(item=>{
-        text += ${item.name} - ${item.price} сум\n;
-        total += item.price;
+    products.forEach((p,i)=>{
+
+        qtys[i].textContent = p.qty;
+
+        count += p.qty;
+
+        total += p.qty * p.price;
+
     });
 
-    text += \nИтого: ${total} сум;
+    cartCount.textContent = count;
 
-    alert(text);
-});
-document.getElementById("orderBtn").addEventListener("click", () => {
+    cartBtn.innerHTML = 🛒 ${count} | ${total.toLocaleString()} сум <span id="cartCount"></span>;
+}
 
-    const name = document.getElementById("name").value;
-    const phone = document.getElementById("phone").value;
-    const address = document.getElementById("address").value;
+plusBtns.forEach((btn,index)=>{
 
-    if (!name  !phone  !address) {
-        alert("Заполните все обязательные поля!");
-        return;
+    btn.onclick=()=>{
+
+        products[index].qty++;
+
+        updateCart();
+
     }
 
-    alert(
-        "✅ Заказ принят!\n\n" +
-        "Имя: " + name +
-        "\nТелефон: " + phone +
-        "\nАдрес: " + address
-    );
-
-    cart = [];
-    cartCount = 0;
-    cartBtn.innerHTML = "🛒 Корзина (0)";
 });
+
+minusBtns.forEach((btn,index)=>{
+
+    btn.onclick=()=>{
+
+        if(products[index].qty>0){
+
+            products[index].qty--;
+
+            updateCart();
+
+        }
+
+    }
+
+});
+
+cartBtn.onclick=()=>{
+
+    let message="";
+
+    let total=0;
+
+    products.forEach(p=>{
+
+        if(p.qty>0){
+
+            message += ${lang==="ru"?p.nameRu:p.nameUz} × ${p.qty}\n;
+
+            total += p.qty*p.price;
+
+        }
+
+    });
+
+    if(total===0){
+
+        alert(lang==="ru"?"Корзина пустая":"Savat bo'sh");
+
+        return;
+
+    }
+
+    alert(message+"\n\n"+(lang==="ru"?"Итого: ":"Jami: ")+total.toLocaleString()+" сум");
+
+}
+
+language.onchange=()=>{
+
+    lang=language.value;
+
+    const h2=document.querySelectorAll(".card h2");
+
+    if(lang==="ru"){
+
+        h2[0].textContent="🥩 Говяжья самса";
+        h2[1].textContent="🍗 Куриная самса";
+        h2[2].textContent="🥔 Картофельная самса";
+
+        document.getElementById("orderBtn").textContent="✅ Оформить заказ";
+
+    }else{
+
+        h2[0].textContent="🥩 Mol go'shtli somsa";
+        h2[1].textContent="🍗 Tovuqli somsa";
+        h2[2].textContent="🥔 Kartoshkali somsa";
+
+        document.getElementById("orderBtn").textContent="✅ Buyurtma berish";
+
+    }
+
+}
+
+document.getElementById("orderBtn").onclick=()=>{
+
+    const name=document.getElementById("name").value;
+    const phone=document.getElementById("phone").value;
+    const address=document.getElementById("address").value;
+
+    if(name===""phone===""address===""){
+
+        alert(lang==="ru"?"Заполните все поля":"Barcha maydonlarni to'ldiring");
+
+        return;
+
+    }
+
+    alert(lang==="ru"
+    ?"Спасибо! Ваш заказ принят."
+    :"Rahmat! Buyurtmangiz qabul qilindi.");
+
+}
+
+updateCart();
