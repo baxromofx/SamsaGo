@@ -22,6 +22,7 @@ const products = [
 let lang = "ru";
 
 const plusBtns = document.querySelectorAll(".plus");
+console.log("Кнопок плюс найдено:", plusBtns.length);
 const minusBtns = document.querySelectorAll(".minus");
 const qtys = document.querySelectorAll(".qty");
 
@@ -50,7 +51,7 @@ function updateCart(){
 }
 
 plusBtns.forEach((btn,index)=>{
-
+console.log("Кнопка плюс работает", index);
     btn.onclick=()=>{
 
         products[index].qty++;
