@@ -1,63 +1,167 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SamsaGo</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SamsaGo</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
 </head>
-    <section class="order">
-    <h2>📦 Оформление заказа</h2>
 
-    <input type="text" id="name" placeholder="Ваше имя">
-
-    <input type="tel" id="phone" placeholder="Телефон">
-
-    <input type="text" id="address" placeholder="Адрес доставки">
-
-    <textarea id="comment" placeholder="Комментарий"></textarea>
-
-    <button id="orderBtn">Оформить заказ</button>
-</section>
 <body>
 
-<header>
-    <h1>🥟 SamsaGo</h1>
+<header class="header">
 
-    <select id="language">
-        <option value="ru">Русский</option>
-        <option value="uz">O'zbekcha</option>
-    </select>
+<div class="logo">
+🥟 <span>SamsaGo</span>
+</div>
 
-    <button id="cartBtn">🛒 Корзина (0)</button>
+<div class="top-buttons">
+
+<select id="language">
+<option value="ru">Русский</option>
+<option value="uz">O'zbekcha</option>
+</select>
+
+<button id="cartBtn">
+🛒
+<span id="cartCount">0</span>
+</button>
+
+</div>
+
 </header>
+
+<section class="hero">
+
+<h1>🔥 Горячая самса прямо из тандыра</h1>
+
+<p>
+Доставка свежей самсы по вашему городу
+</p>
+
+<div class="heroButtons">
+
+<button class="delivery">
+🚚 Доставка
+</button>
+
+<button class="pickup">
+🏪 Самовывоз
+</button>
+
+</div>
+
+</section>
 
 <section class="products">
 
-    <div class="card">
-        <img src="images/beef.jpg" alt="Говяжья самса">
-        <h2>🥩 Говяжья самса</h2>
-        <p>25 000 сум</p>
-        <button>Добавить в корзину</button>
-    </div>
+<div class="card">
 
-    <div class="card">
-        <img src="images/chicken.jpg" alt="Куриная самса">
-        <h2>🍗 Куриная самса</h2>
-        <p>22 000 сум</p>
-        <button>Добавить в корзину</button>
-    </div>
+<img src="images/beef.jpg">
 
-    <div class="card">
-        <img src="images/potato.jpg" alt="Картофельная самса">
-        <p>18 000 сум</p>
-        <button>Добавить в корзину</button>
-    </div>
+<h2>🥩 Говяжья самса</h2>
+
+<p class="price">
+25 000 сум
+</p>
+
+<div class="controls">
+
+<button class="minus">−</button>
+
+<span class="qty">0</span>
+
+<button class="plus">+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/chicken.jpg">
+
+<h2>🍗 Куриная самса</h2>
+
+<p class="price">
+22 000 сум
+</p>
+
+<div class="controls">
+
+<button class="minus">−</button>
+
+<span class="qty">0</span>
+
+<button class="plus">+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/potato.jpg">
+
+<h2>🥔 Картофельная самса</h2>
+
+<p class="price">
+18 000 сум
+</p>
+
+<div class="controls">
+
+<button class="minus">−</button>
+
+<span class="qty">0</span>
+
+<button class="plus">+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="order">
+
+<h2>📦 Оформление заказа</h2>
+
+<input
+type="text"
+id="name"
+placeholder="Имя">
+
+<input
+type="tel"
+id="phone"
+placeholder="Телефон">
+
+<input
+type="text"
+id="address"
+placeholder="Адрес доставки">
+
+<textarea
+id="comment"
+placeholder="Комментарий"></textarea>
+
+<button id="orderBtn">
+
+✅ Оформить заказ
+
+</button>
 
 </section>
 
 <footer>
-    <p>© 2026 SamsaGo</p>
+
+© 2026 SamsaGo
+
 </footer>
 
 <script src="script.js"></script>
