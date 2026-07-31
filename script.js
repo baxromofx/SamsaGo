@@ -154,3 +154,72 @@ document.getElementById("orderBtn").onclick=()=>{
 }
 
 updateCart();
+
+const cartModal = document.getElementById("cartModal");
+const closeCart = document.getElementById("closeCart");
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+
+function renderCart() {
+
+    cartItems.innerHTML = "";
+
+    let total = 0;
+
+    products.forEach(product => {
+
+        if (product.qty > 0) {
+
+            const row = document.createElement("div");
+            row.className = "cartRow";
+
+            row.innerHTML = 
+                <span>${lang === "ru" ? product.nameRu : product.nameUz} × ${product.qty}</span>
+                <span>${(product.qty * product.price).toLocaleString()} сум</span>
+            ;
+
+            cartItems.appendChild(row);
+
+            total += product.qty * product.price;
+        }
+
+    });
+
+    cartTotal.textContent =
+        (lang === "ru" ? "Итого: " : "Jami: ") +
+        total.toLocaleString() + " сум";
+}
+
+cartBtn.onclick = () => {
+
+    renderCart();
+
+    cartModal.style.display = "flex";
+
+};
+
+closeCart.onclick = () => {
+
+    cartModal.style.display = "none";
+
+};
+
+window.onclick = (e) => {
+
+    if (e.target === cartModal) {
+
+        cartModal.style.display = "none";
+
+    }
+
+};
+
+document.getElementById("checkoutBtn").onclick = () => {
+
+    cartModal.style.display = "none";
+
+    document.querySelector(".order").scrollIntoView({
+        behavior: "smooth"
+    });
+
+};
