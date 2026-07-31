@@ -48,3 +48,25 @@ cartBtn.addEventListener("click", () => {
 
     alert(text);
 });
+document.getElementById("orderBtn").addEventListener("click", () => {
+
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const address = document.getElementById("address").value;
+
+    if (!name  !phone  !address) {
+        alert("Заполните все обязательные поля!");
+        return;
+    }
+
+    alert(
+        "✅ Заказ принят!\n\n" +
+        "Имя: " + name +
+        "\nТелефон: " + phone +
+        "\nАдрес: " + address
+    );
+
+    cart = [];
+    cartCount = 0;
+    cartBtn.innerHTML = "🛒 Корзина (0)";
+});
