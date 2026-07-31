@@ -171,7 +171,7 @@ document.getElementById("orderBtn").onclick = async () => {
 
     try {
 
-        const response = await fetch("http://localhost:3000/order", {
+        const response = await fetch("https://samsago.onrender.com/order", {
 
             method: "POST",
 
