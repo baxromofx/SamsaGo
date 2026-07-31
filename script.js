@@ -133,25 +133,84 @@ language.onchange=()=>{
 
 }
 
-document.getElementById("orderBtn").onclick=()=>{
+document.getElementById("orderBtn").onclick = async () => {
 
-    const name=document.getElementById("name").value;
-    const phone=document.getElementById("phone").value;
-    const address=document.getElementById("address").value;
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const address = document.getElementById("address").value;
+    const comment = document.getElementById("comment").value;
 
-    if(name===""phone===""address===""){
-
-        alert(lang==="ru"?"Заполните все поля":"Barcha maydonlarni to'ldiring");
-
+    if (!name  !phone  !address) {
+        alert("Заполните все обязательные поля!");
         return;
+    }
+
+    const items = [];
+
+    let total = 0;
+
+    products.forEach(product => {
+
+        if (product.qty > 0) {
+
+            items.push({
+                name: lang === "ru" ? product.nameRu : product.nameUz,
+                qty: product.qty,
+                price: product.price
+            });
+
+            total += product.qty * product.price;
+        }
+
+    });
+
+    if (items.length === 0) {
+        alert("Корзина пустая!");
+        return;
+    }
+
+    try {
+
+        const response = await fetch("http://localhost:3000/order", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                name,
+                phone,
+                address,
+                comment,
+                items,
+                total
+            })
+
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            alert("✅ Заказ успешно отправлен!");
+
+        } else {
+
+            alert("❌ Ошибка отправки заказа.");
+
+        }
+
+    } catch (e) {
+
+        alert("❌ Сервер недоступен.");
+
+        console.error(e);
 
     }
 
-    alert(lang==="ru"
-    ?"Спасибо! Ваш заказ принят."
-    :"Rahmat! Buyurtmangiz qabul qilindi.");
-
-}
+};
 
 updateCart();
 
